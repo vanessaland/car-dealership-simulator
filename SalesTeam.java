@@ -21,7 +21,7 @@ public class SalesTeam
         team.add("Vanessa");
         team.add("Jimmy");
         team.add("Anthony");
-        team.add("Andy");
+        team.add("Alex");
 
     }
 

@@ -10,8 +10,8 @@ import java.util.GregorianCalendar;
 import java.util.Calendar;
 import java.text.DecimalFormat;
 
-public class AccountingSystem {
-	
+public class AccountingSystem
+{	
     private static Map<Integer, Transaction> transactionMap;
     private static Map<Integer, Integer> monthSalesMap;
     private static Map<String, Integer> personSalesMap;
@@ -24,8 +24,8 @@ public class AccountingSystem {
      * Constructor initializes the maps for transactions with ID, amount of sales per month, amount of sales per salesperson;
      and initializes variables
      */
-    public AccountingSystem() {
-	    
+    public AccountingSystem()
+    {    
         transactionMap = new TreeMap<Integer, Transaction>();
         monthSalesMap = new TreeMap<Integer, Integer>();
 	personSalesMap = new TreeMap<String, Integer>();
@@ -66,8 +66,8 @@ public class AccountingSystem {
      * @return a display of the transaction
      */
     public String add(GregorianCalendar date, Car car, String salesPerson,
-    Transaction.TransactionType type, double salePrice) {
-        
+    Transaction.TransactionType type, double salePrice)
+    {    
 	int id = 1 + (int)(Math.random() * (99-1)+1);
         newTransaction = new Transaction(id, date, car, salesPerson, type, salePrice);
         transactionMap.put(id, newTransaction);
@@ -79,11 +79,13 @@ public class AccountingSystem {
         int spAmount = personSalesMap.get(salesPerson) + 1;
         personSalesMap.put(salesPerson, spAmount);
 
-        if (type == Transaction.TransactionType.BUY) {
+        if (type == Transaction.TransactionType.BUY)
+	{
         	totalSold++;
         }
         
-        if (type == Transaction.TransactionType.RETURN) {
+        if (type == Transaction.TransactionType.RETURN)
+	{
         	totalReturned++;
         }
 
@@ -97,8 +99,10 @@ public class AccountingSystem {
      * @param id
      * @return transaction with corresponding ID
      */
-    public static Transaction getTransaction(int id) {
-        if (transactionMap.get(id) != null) {
+    public static Transaction getTransaction(int id)
+    {
+        if (transactionMap.get(id) != null)
+	{
             return transactionMap.get(id);
         } else {
             return null;
@@ -108,12 +112,13 @@ public class AccountingSystem {
     /**
      * Displays all the transactions by looping through and displaying the map of transactionIDs and transaction objects
      */
-    public void getAllTransactions() {
-	    
+    public void getAllTransactions()
+    {    
     	Set<Integer> keySet = transactionMap.keySet();	
         System.out.println("-------------------------------");
         
-        for (Integer key : keySet) {
+        for (Integer key : keySet)
+	{
         	Transaction value = transactionMap.get(key);
             String formatdate = value.getDate().toZonedDateTime().format(DateTimeFormatter.ofPattern("d MMM uuuu"));
             System.out.println("ID: " + key +" "+ formatdate + " " + value.getType()
@@ -128,8 +133,10 @@ public class AccountingSystem {
      * @param id
      * @return the car
      */
-    public Car getCar(int id) {
-        if (transactionMap.get(id) != null) {
+    public Car getCar(int id)
+    {
+        if (transactionMap.get(id) != null)
+	{
             Transaction transaction = transactionMap.get(id);
             Car car = transaction.getCar();
             return car;
@@ -142,17 +149,21 @@ public class AccountingSystem {
     /**
      * Displays the salesperson(s) with the highest amount of sales
      */
-    public void topSalesPerson() {
+    public void topSalesPerson()
+    {
     	String topSalesPerson = "";
     	int topAmount = 0;
     	Set<String> keySet = personSalesMap.keySet();
-        for (String key : keySet) {
+        for (String key : keySet)
+	{
         	int amount = personSalesMap.get(key);
-        	if (amount > topAmount) {
+        	if (amount > topAmount)
+		{
         		topSalesPerson = key;
         		topAmount = amount;
         	}
-        	if (amount == topAmount && amount != 0 && !key.equals(topSalesPerson)) {
+        	if (amount == topAmount && amount != 0 && !key.equals(topSalesPerson))
+		{
         		topSalesPerson += " and " + key;
         	}
         }
@@ -164,16 +175,18 @@ public class AccountingSystem {
      * Displays the total sales, total sold, average sales, total returned, month with the most 
      * sales and the amount of cars sold in the best month 
      */
-    public void stats() {
-	    
+    public void stats()
+    {    
     	String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
     	int topMonth = 0;
     	int topMonthValue = 0;
     	Set<Integer> keySet = monthSalesMap.keySet();
     	
-        for (int key : keySet) {
+        for (int key : keySet)
+	{
 		int value = monthSalesMap.get(key);
-		if (value >= topMonthValue) {
+		if (value >= topMonthValue)
+		{
 			topMonthValue = value;
 			topMonth = key;
 		}
@@ -196,14 +209,16 @@ public class AccountingSystem {
      * Displays the transactions within the indicated month
      * @param month
      */
-    public void salesM(int month) {
-	    
+    public void salesM(int month)
+    {    
     	Set<Integer> keySet = transactionMap.keySet();	
         System.out.println("-------------------------------");
 
-        for (Integer key : keySet) {
+        for (Integer key : keySet)
+	{
         	Transaction value = transactionMap.get(key);
-        	if (value.getDate().get(Calendar.MONTH) == month) {
+        	if (value.getDate().get(Calendar.MONTH) == month)
+		{
                 String formatdate = value.getDate().toZonedDateTime().format(DateTimeFormatter.ofPattern("d MMM uuuu"));
                 System.out.println("ID: " + key +" "+ formatdate + " " + value.getType()
     			+ " SalesPerson: " +  value.getSalesPerson() + " Car: " 
